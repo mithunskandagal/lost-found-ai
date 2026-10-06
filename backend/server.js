@@ -30,8 +30,10 @@ app.use((err, req, res, next) => {
 
 const PORT = process.env.PORT || 5000;
 
-connectDB().then(() => {
-  app.listen(PORT, () => {
-    console.log(`Backend running on http://localhost:${PORT}`);
-  });
+app.listen(PORT, () => {
+  console.log(`Backend running on port ${PORT}`);
+});
+
+connectDB().catch((error) => {
+  console.error("MongoDB connection failed:", error.message);
 });
