@@ -11,14 +11,14 @@ export default function ItemDetails() {
   const user = JSON.parse(localStorage.getItem("lf_user") || "null");
 
   useEffect(() => {
-    api.get(`/items/${id}`).then(r => setItem(r.data)).catch(() => {});
+    api.get(`/api/items/${id}`).then(r => setItem(r.data)).catch(() => {});
   }, [id]);
 
   async function findMatches() {
     if (!user) return alert("Login first.");
     setLoadingMatches(true);
     try {
-      const {data} = await api.get(`/items/${id}/matches`);
+      const {data} = await api.get(`/api/items/${id}/matches`);
       setMatches(data);
     } catch (e) {
       alert(e.response?.data?.message || "Could not find matches");
@@ -30,7 +30,7 @@ export default function ItemDetails() {
     const message = prompt("Why do you believe this item belongs to you?");
     if (message === null) return;
     try {
-      await api.post(`/items/${id}/claim`, {message});
+      await api.post(`/api/items/${id}/claim`, {message});
       alert("Claim submitted successfully.");
     } catch (e) {
       alert(e.response?.data?.message || "Claim failed");
@@ -56,9 +56,9 @@ export default function ItemDetails() {
           <div><b>Location</b><span>{item.location}</span></div>
           <div><b>Date</b><span>{new Date(item.date).toLocaleDateString()}</span></div>
         </div>
-        {item.aiSummary && <div className="aiBox"><b>✨ AI summary</b><p>{item.aiSummary}</p></div>}
+        {item.aiSummary && <div className="aiBox"><b>✨ Item summary</b><p>{item.aiSummary}</p></div>}
         <div className="actions">
-          <button className="primary" onClick={findMatches}>{loadingMatches ? "AI is matching..." : "✨ Find AI matches"}</button>
+          <button className="primary" onClick={findMatches}>{loadingMatches ? "Finding matches..." : "✨ Find possible matches"}</button>
           <button className="secondary" onClick={claim}>Claim this item</button>
         </div>
       </div>
@@ -66,7 +66,7 @@ export default function ItemDetails() {
 
     {matches.length > 0 && <section className="matches">
       <h2>Possible matches</h2>
-      <p>AI-ranked suggestions. A high score is a lead, not proof of ownership.</p>
+      <p>Possible matches based on item details. A high score is a lead, not proof of ownership.</p>
       <div className="grid">
         {matches.map(m => <Link className="itemCard" to={`/items/${m._id}`} key={m._id}>
           {m.imageUrl ? <img src={`http://localhost:5000${m.imageUrl}`} alt={m.title}/> : <div className="imagePlaceholder">📦</div>}

@@ -23,7 +23,7 @@ export default function App() {
       <header className="nav">
         <Link to="/" className="brand">
           <span className="brandIcon">🔎</span>
-          Lost<span>&</span>Found AI
+          Lost<span>&</span>Found Application
         </Link>
 
         <nav>
@@ -47,7 +47,7 @@ export default function App() {
         </Routes>
       </main>
 
-      <footer>Lost & Found AI • Smart community recovery platform</footer>
+      <footer>Lost & Found Application • Smart community recovery platform</footer>
     </div>
   );
 }

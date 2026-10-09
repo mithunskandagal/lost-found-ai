@@ -13,7 +13,7 @@ export default function Home() {
   async function load() {
     setLoading(true);
     try {
-      const { data } = await api.get("/items", { params: { search, type } });
+      const { data } = await api.get("/api/items", { params: { search, type } });
       setItems(data);
     } catch (e) {
       alert(e.response?.data?.message || "Could not load items");
@@ -28,15 +28,15 @@ export default function Home() {
     <div className="page">
       <section className="hero">
         <div>
-          <div className="eyebrow"><Sparkles size={16}/> AI-powered recovery</div>
+          <div className="eyebrow"><Sparkles size={16}/> Lost and Found Recovery</div>
           <h1>Find what you lost.<br/><span>Return what you found.</span></h1>
-          <p>Report lost and found items, search the community database, and let AI identify possible matches.</p>
+          <p>Report lost and found items, search the community database, and find possible matches.</p>
           <Link to="/report" className="primary">+ Report an item</Link>
         </div>
         <div className="heroCard">
           <div className="scanCircle">🔍</div>
           <b>Smart matching</b>
-          <small>AI compares descriptions, categories, colors, brands, locations and dates.</small>
+          <small>Smart matching compares descriptions, categories, colors, brands, locations and dates.</small>
         </div>
       </section>
 

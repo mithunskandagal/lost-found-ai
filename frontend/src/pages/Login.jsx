@@ -10,7 +10,7 @@ export default function Login() {
   async function submit(e) {
     e.preventDefault();
     try {
-      const { data } = await api.post("/auth/login", form);
+      const { data } = await api.post("/api/auth/login", form);
       localStorage.setItem("lf_token", data.token);
       localStorage.setItem("lf_user", JSON.stringify(data.user));
       navigate("/");

@@ -25,7 +25,7 @@ export default function ReportItem() {
     if (image) data.append("image", image);
 
     try {
-      const res = await api.post("/items", data, { headers: {"Content-Type": "multipart/form-data"} });
+      const res = await api.post("/api/items", data, { headers: {"Content-Type": "multipart/form-data"} });
       navigate(`/items/${res.data._id}`);
     } catch (e) {
       alert(e.response?.data?.message || "Could not create report");
@@ -35,7 +35,7 @@ export default function ReportItem() {
   }
 
   return <div className="formPage">
-    <div className="formIntro"><div className="eyebrow">📌 New report</div><h1>Report an item</h1><p>Give as much detail as possible. AI will extract useful tags and help find potential matches.</p></div>
+    <div className="formIntro"><div className="eyebrow">📌 New report</div><h1>Report an item</h1><p>Give as much detail as possible. Give as much detail as possible to help find potential matches.</p></div>
     <form className="formCard" onSubmit={submit}>
       <div className="segmented">
         <button type="button" className={form.type==="lost"?"selected":""} onClick={()=>update("type","lost")}>I lost an item</button>
@@ -55,7 +55,7 @@ export default function ReportItem() {
       </div>
       <label>Location<input required placeholder="Where was it lost/found?" value={form.location} onChange={e=>update("location",e.target.value)}/></label>
       <label>Photo<input type="file" accept="image/*" onChange={e=>setImage(e.target.files?.[0] || null)}/></label>
-      <button className="primary full" disabled={busy}>{busy ? "Analyzing with AI..." : "Submit report"}</button>
+      <button className="primary full" disabled={busy}>{busy ? "Processing..." : "Submit report"}</button>
     </form>
   </div>;
 }

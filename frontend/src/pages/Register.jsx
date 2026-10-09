@@ -10,7 +10,7 @@ export default function Register() {
   async function submit(e) {
     e.preventDefault();
     try {
-      const { data } = await api.post("/auth/register", form);
+      const { data } = await api.post("/api/auth/register", form);
       localStorage.setItem("lf_token", data.token);
       localStorage.setItem("lf_user", JSON.stringify(data.user));
       navigate("/");
